@@ -93,8 +93,9 @@ void pretty_print_grid(int grid[9][9]) {
 /* Solves the grid */
 bool resolve(int grid[9][9]) {
 
-    int row = next_empty_cell(grid).first;
-    int col = next_empty_cell(grid).second;
+    auto empty = next_empty_cell(grid);
+    int row = empty.first;
+    int col = empty.second;
 
     // If the grid is full, we are done
     if (row == -1 && col == -1) {
@@ -105,10 +106,6 @@ bool resolve(int grid[9][9]) {
 
     // If the cell is empty, we can place a number in it
     std::vector<int> numbers = matching_number(grid, row, col);
-
-    if (numbers.empty()) {
-        return false;
-    }
 
     for (int n : numbers) {
         grid[row][col] = n;
